@@ -1,4 +1,4 @@
-# 🧑‍💻 Ömer Turan - Portfolio Website
+# 🧑‍💻 Ömer Faruk Turan - Portfolio Website
 
 Welcome to my **personal portfolio website** – a responsive, modern, and animated single-page web app built with **React**, **Vite**, and **Tailwind CSS**.  
 It showcases my **skills**, **projects**, **education**, and allows easy **contact**.
