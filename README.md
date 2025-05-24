@@ -4,9 +4,10 @@ Welcome to my **personal portfolio website** – a responsive, modern, and anima
 It showcases my **skills**, **projects**, **education**, and allows easy **contact**.
 
 <div align="center">
-  🌐 Live Site: https://omerturan.great-site.net/ <br/>
-  📁 GitHub Repo: https://github.com/omerturantr/my-portfolio
+  🌐 <a href="https://omerturan.great-site.net/" target="_blank" rel="noopener noreferrer">Live Site</a> <br/>
+  📁 <a href="https://github.com/omerturantr/my-portfolio" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
 </div>
+
 
 ---
 
