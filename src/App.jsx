@@ -1,6 +1,8 @@
+import React, { useState, useEffect } from "react";
+import { db } from "./firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import React, { useState, useEffect } from "react";
 import {
   FaGithub,
   FaLinkedin,
@@ -15,6 +17,7 @@ function App() {
   const [page, setPage] = useState("home");
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   useEffect(() => {
     const root = document.documentElement;
@@ -30,33 +33,49 @@ function App() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  const projects = [
-  {
-    title: "Python Basics",
-    description: "A collection of beginner Python programs covering logic, functions, loops and conditionals.",
-    github: "https://github.com/omerturantr/python-basics",
-    demo: "#",
-    image: "https://via.placeholder.com/400x200.png?text=Python+Basics",
-    tags: ["Python", "CLI"]
-  },
-  {
-    title: "Image Filter Tool",
-    description: "Interactive desktop app using OpenCV to apply filters and manipulate images in real-time.",
-    github: "https://github.com/omerturantr/image-filter-tool",
-    demo: "#",
-    image: "https://via.placeholder.com/400x200.png?text=Image+Filter+Tool",
-    tags: ["Python", "OpenCV", "Tkinter"]
-  },
-  {
-    title: "Product Manager App",
-    description: "Flutter + Firebase CRUD app for product management with authentication and category filtering.",
-    github: "https://github.com/omerturantr/product-manager",
-    demo: "#",
-    image: "https://via.placeholder.com/400x200.png?text=Product+Manager+App",
-    tags: ["Flutter", "Firebase", "Mobile"]
-  }
-];
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await addDoc(collection(db, "messages"), {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        createdAt: Timestamp.now()
+      });
+      alert("Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Error sending message: ", error);
+      alert("There was an error sending your message.");
+    }
+  };
 
+  const projects = [
+    {
+      title: "Python Basics",
+      description: "A collection of beginner Python programs covering logic, functions, loops and conditionals.",
+      github: "https://github.com/omerturantr/python-basics",
+      demo: "#",
+      image: "https://via.placeholder.com/400x200.png?text=Python+Basics",
+      tags: ["Python", "CLI"]
+    },
+    {
+      title: "Image Filter Tool",
+      description: "Interactive desktop app using OpenCV to apply filters and manipulate images in real-time.",
+      github: "https://github.com/omerturantr/image-filter-tool",
+      demo: "#",
+      image: "https://via.placeholder.com/400x200.png?text=Image+Filter+Tool",
+      tags: ["Python", "OpenCV", "Tkinter"]
+    },
+    {
+      title: "Product Manager App",
+      description: "Flutter + Firebase CRUD app for product management with authentication and category filtering.",
+      github: "https://github.com/omerturantr/product-manager",
+      demo: "#",
+      image: "https://via.placeholder.com/400x200.png?text=Product+Manager+App",
+      tags: ["Flutter", "Firebase", "Mobile"]
+    }
+  ];
 
   const renderPage = () => {
     switch (page) {
@@ -69,51 +88,36 @@ function App() {
             </p>
           </section>
         );
+
       case "skills":
         return (
           <section className="fade-in bg-white dark:bg-zinc-900 shadow rounded-xl p-6">
             <h2 className="text-2xl font-semibold mb-6 text-center">Skills</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-center">
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-orange-500">🌐</span>
-                <p className="text-sm">HTML</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-blue-500">🎨</span>
-                <p className="text-sm">CSS</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-yellow-400">⚡</span>
-                <p className="text-sm">JavaScript</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-cyan-400">💠</span>
-                <p className="text-sm">React</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-sky-400">🌊</span>
-                <p className="text-sm">Tailwind CSS</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-orange-400">🔥</span>
-                <p className="text-sm">Firebase</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-green-500">🐍</span>
-                <p className="text-sm">Python</p>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <span className="text-4xl text-blue-800">C</span>
-                <p className="text-sm">C / C++</p>
-              </div>
+              {/* Skill Items */}
+              {[
+                ["🌐", "HTML"],
+                ["🎨", "CSS"],
+                ["⚡", "JavaScript"],
+                ["💠", "React"],
+                ["🌊", "Tailwind CSS"],
+                ["🔥", "Firebase"],
+                ["🐍", "Python"],
+                ["C", "C / C++"],
+              ].map(([emoji, label], index) => (
+                <div key={index} className="flex flex-col items-center gap-2">
+                  <span className="text-4xl">{emoji}</span>
+                  <p className="text-sm">{label}</p>
+                </div>
+              ))}
             </div>
           </section>
         );
+
       case "education":
         return (
           <section className="fade-in bg-white dark:bg-zinc-900 shadow rounded-xl p-6">
             <h2 className="text-2xl font-semibold mb-6 text-center">Education</h2>
-
             <div className="relative pl-6 border-l-4 border-blue-500 space-y-8">
               <div className="relative">
                 <span className="absolute -left-3 top-1 w-5 h-5 bg-blue-600 rounded-full border-2 border-white dark:border-zinc-900"></span>
@@ -146,53 +150,48 @@ function App() {
             </div>
           </section>
         );
+
       case "projects":
-  return (
-    <section className="fade-in bg-white dark:bg-zinc-900 shadow rounded-xl p-6">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Projects</h2>
-      <div className="grid gap-6 md:grid-cols-2">
-        {projects.map((p, i) => (
-          <div key={i} className="bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
-            {p.image && (
-              <img src={p.image} alt={p.title} className="w-full h-40 object-cover" />
-            )}
-            <div className="p-4 space-y-2">
-              <h3 className="text-xl font-bold">{p.title}</h3>
-              <p className="text-sm text-zinc-600 dark:text-zinc-300">{p.description}</p>
-
-              {p.tags && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {p.tags.map((tag, t) => (
-                    <span key={t} className="text-xs bg-blue-100 dark:bg-blue-600 text-blue-800 dark:text-white px-2 py-1 rounded">
-                      {tag}
-                    </span>
-                  ))}
+        return (
+          <section className="fade-in bg-white dark:bg-zinc-900 shadow rounded-xl p-6">
+            <h2 className="text-2xl font-semibold mb-6 text-center">Projects</h2>
+            <div className="grid gap-6 md:grid-cols-2">
+              {projects.map((p, i) => (
+                <div key={i} className="bg-zinc-100 dark:bg-zinc-800 rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
+                  {p.image && <img src={p.image} alt={p.title} className="w-full h-40 object-cover" />}
+                  <div className="p-4 space-y-2">
+                    <h3 className="text-xl font-bold">{p.title}</h3>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-300">{p.description}</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {p.tags.map((tag, t) => (
+                        <span key={t} className="text-xs bg-blue-100 dark:bg-blue-600 text-blue-800 dark:text-white px-2 py-1 rounded">{tag}</span>
+                      ))}
+                    </div>
+                    <div className="mt-4 flex gap-3">
+                      <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-sm px-3 py-1 bg-zinc-300 dark:bg-zinc-700 rounded hover:bg-zinc-400 dark:hover:bg-zinc-600 transition">GitHub</a>
+                      <a href={p.demo} target="_blank" rel="noopener noreferrer" className="text-sm px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Live Demo</a>
+                    </div>
+                  </div>
                 </div>
-              )}
-
-              <div className="mt-4 flex gap-3">
-                <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-sm px-3 py-1 bg-zinc-300 dark:bg-zinc-700 rounded hover:bg-zinc-400 dark:hover:bg-zinc-600 transition">
-                  GitHub
-                </a>
-                <a href={p.demo} target="_blank" rel="noopener noreferrer" className="text-sm px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                  Live Demo
-                </a>
-              </div>
+              ))}
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+          </section>
+        );
 
       case "contact":
         return (
           <section id="contact" className="fade-in bg-white dark:bg-zinc-900 shadow rounded-xl p-6">
             <h2 className="text-2xl font-semibold mb-2">Contact</h2>
-            <form action="https://formcarry.com/s/17UUs0Lk3M5" method="POST" className="space-y-4">
-              <input type="text" name="name" placeholder="Name" required className="w-full px-4 py-2 rounded bg-zinc-100 dark:bg-zinc-800" />
-              <input type="email" name="email" placeholder="Email" required className="w-full px-4 py-2 rounded bg-zinc-100 dark:bg-zinc-800" />
-              <textarea name="message" rows="4" placeholder="Message" required className="w-full px-4 py-2 rounded bg-zinc-100 dark:bg-zinc-800"></textarea>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input type="text" name="name" placeholder="Name" required value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-4 py-2 rounded bg-zinc-100 dark:bg-zinc-800" />
+              <input type="email" name="email" placeholder="Email" required value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-2 rounded bg-zinc-100 dark:bg-zinc-800" />
+              <textarea name="message" rows="4" placeholder="Message" required value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-2 rounded bg-zinc-100 dark:bg-zinc-800"></textarea>
               <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Send Message</button>
             </form>
             <div className="mt-6 flex gap-4 text-2xl">
@@ -202,6 +201,7 @@ function App() {
             </div>
           </section>
         );
+
       default:
         return (
           <section className="fade-in text-center py-20 px-4 bg-gradient-to-br from-blue-100 via-white to-purple-100 dark:from-gray-900 dark:via-zinc-800 dark:to-zinc-900 rounded-xl shadow">
