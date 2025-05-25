@@ -132,7 +132,7 @@ function App() {
                 <span className="absolute -left-3 top-1 w-5 h-5 bg-blue-500 rounded-full border-2 border-white dark:border-zinc-900"></span>
                 <h4 className="text-lg font-semibold text-zinc-800 dark:text-white">Academic Achievements</h4>
                 <ul className="list-disc list-inside text-sm text-zinc-600 dark:text-zinc-300 mt-1 space-y-1">
-                  <li>Expected GPA: 3.5 / 4.0</li>
+                  <li>Expected GPA: 2.6 / 4.0</li>
                   <li>Dean’s List for 3 semesters</li>
                   <li>Top 10% in Algorithms & Data Structures course</li>
                 </ul>
@@ -205,7 +205,7 @@ function App() {
       default:
         return (
           <section className="fade-in text-center py-20 px-4 bg-gradient-to-br from-blue-100 via-white to-purple-100 dark:from-gray-900 dark:via-zinc-800 dark:to-zinc-900 rounded-xl shadow">
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-zinc-900 dark:text-white mb-4">Ömer Turan</h1>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-zinc-900 dark:text-white mb-4">Ömer Faruk Turan</h1>
             <h2 className="text-xl sm:text-2xl text-blue-500 dark:text-blue-400 mb-4">Frontend Developer 💻</h2>
             <p className="text-lg sm:text-xl text-zinc-700 dark:text-zinc-300 max-w-2xl mx-auto">
               I build responsive, accessible web apps using React, Tailwind CSS, and modern tools.
@@ -217,7 +217,7 @@ function App() {
             <div className="mt-10 flex justify-center gap-6 text-2xl text-zinc-600 dark:text-zinc-300">
               <a href="https://github.com/omerturantr" className="hover:text-blue-500" aria-label="GitHub"><FaGithub /></a>
               <a href="https://linkedin.com/in/omerturan" className="hover:text-blue-500" aria-label="LinkedIn"><FaLinkedin /></a>
-              <a href="mailto:omerturan@example.com" className="hover:text-blue-500" aria-label="Email"><FaEnvelope /></a>
+              <a href="omerturanpersonal@gmail.com" className="hover:text-blue-500" aria-label="Email"><FaEnvelope /></a>
             </div>
           </section>
         );
@@ -229,7 +229,7 @@ function App() {
   return (
     <div className="min-h-screen bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white font-sans">
       <header className="sticky top-0 z-50 bg-white/90 dark:bg-zinc-800/90 backdrop-blur p-4 shadow flex justify-between items-center">
-        <h1 className="text-xl font-bold">Ömer Turan</h1>
+        <h1 className="text-xl font-bold">Ömer Faruk Turan</h1>
         <div className="md:hidden">
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-xl">
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -268,7 +268,7 @@ function App() {
       )}
 
       <footer className="text-center text-sm py-6 border-t border-zinc-200 dark:border-zinc-700">
-        © {new Date().getFullYear()} Ömer Turan. All rights reserved.
+        © {new Date().getFullYear()} Ömer Faruk Turan. All rights reserved.
       </footer>
     </div>
   );
