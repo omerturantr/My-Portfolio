@@ -11,7 +11,7 @@ It showcases my **skills**, **projects**, **education**, and allows easy **conta
 
 ---
 
-## ✨ Features
+## ✨ Feature
 
 - 🌙 **Dark/Light Mode** toggle (with persistent theme memory)
 - 📱 **Responsive Design** (mobile, tablet, desktop support)
